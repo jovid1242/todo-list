@@ -23,14 +23,26 @@ const Modal = ({ visible, setVisible }) => {
     });
     const dispatch = useDispatch();
 
+    /**
+     *
+     * @param {string} ev
+     */
     const handleChangeInput = (ev) => {
         setTask({ ...task, [ev.target.name]: ev.target.value });
     };
 
+    /**
+     *
+     * @param {string} ev
+     */
     const handleChangeTextArea = (ev) => {
         setTask({ ...task, [ev.target.name]: ev.target.value });
     };
 
+    /**
+     *
+     * @param {*} e
+     */
     const handleSubmit = (e) => {
         e.preventDefault();
         if (

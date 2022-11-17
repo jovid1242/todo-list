@@ -22,10 +22,18 @@ const ModalEdit = ({ id, visible, setVisible }) => {
     const [task, setTask] = useState({});
     const dispatch = useDispatch();
 
+    /**
+     *
+     * @param {string} ev
+     */
     const handleChangeInput = (ev) => {
         setTask({ ...task, [ev.target.name]: ev.target.value });
     };
 
+    /**
+     *
+     * @param {string} ev
+     */
     const handleChangeTextArea = (ev) => {
         setTask({ ...task, [ev.target.name]: ev.target.value });
     };
@@ -34,6 +42,10 @@ const ModalEdit = ({ id, visible, setVisible }) => {
         setTask(todo.items.find((elm) => elm.id === id));
     }, [id]);
 
+    /**
+     *
+     * @param {*} e
+     */
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(edit(task));

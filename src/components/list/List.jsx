@@ -19,6 +19,11 @@ const List = ({ editList, task }) => {
     const [statusTask, setStatusTask] = useState(task.status === "done");
     const dispatch = useDispatch();
 
+    /**
+     *
+     * @param {*} ev
+     *
+     */
     const handleCheckTask = (ev) => {
         setStatusTask(ev.target.checked);
         if (ev.target.checked) {
@@ -32,6 +37,10 @@ const List = ({ editList, task }) => {
         );
     };
 
+    /**
+     *
+     * @param {*} id
+     */
     const removeTask = (id) => {
         dispatch(remove(id));
         notify("success", "Задача была успешно удалена");

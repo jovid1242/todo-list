@@ -18,6 +18,10 @@ const Home = () => {
 
     const { todo } = useSelector((state) => state.todo);
 
+    /**
+     *
+     * @param {string} id
+     */
     const editList = (id) => {
         setEditTask(id);
         setEditModalVisible(true);
