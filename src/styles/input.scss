@@ -1,15 +1,38 @@
-.t-input input {
-  min-width: 280px;
-  height: 45px;
-  padding: 0 16px;
-  border-radius: 8px;
-  color: #fff;
-  transition: 0.6s ease-in-out;
-  border: 2px solid #2b2b36;
-  outline: none;
-  background: none;
-  cursor: pointer;
+.t-input {
+    width: 100%;
+
+    input {
+        min-width: 480px;
+        height: 45px;
+        padding: 0 16px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        color: #fff;
+        transition: 0.6s ease-in-out;
+        border: 2px solid #2b2b36;
+        outline: none;
+        background: none;
+        cursor: pointer;
+    }
+
+    input[type="file"] {
+        width: 240px;
+        height: 35px;
+        padding-top: 10px;
+        border-radius: 8px;
+        color: #fff;
+        transition: 0.6s ease-in-out;
+        border: 2px solid #2b2b36;
+        outline: none;
+        background: none;
+        cursor: pointer;
+    }
 }
 .xl input {
-  width: 768px;
+    min-width: 768px;
+}
+
+.ml input {
+    min-width: 150px;
 }

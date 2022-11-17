@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { remove } from "../../store/slices/todo";
+
+// icons
 import { IoIosArrowDropupCircle } from "react-icons/io";
 import { MdModeEditOutline, MdOutlineDeleteForever } from "react-icons/md";
 import { AiFillFileText } from "react-icons/ai";
@@ -6,15 +10,21 @@ import { AiFillFileText } from "react-icons/ai";
 // styles
 import "../../styles/list.scss";
 
-const List = ({ title, text, status }) => {
+const List = ({ editList, task }) => {
     const [active, setActive] = useState(false);
+    const dispatch = useDispatch();
+
     return (
-        <div className={"list " + status}>
+        <div className={"list " + task.status} key={task.id}>
             <div className="check-list">
                 <label htmlFor="check" className="mr-2">
                     Сделал
                 </label>
-                <input type="checkbox" id="check" />
+                <input
+                    type="checkbox"
+                    id="check"
+                    checked={task.status === "done" ? true : false}
+                />
             </div>
             <div
                 className={active ? "list-icon active" : "list-icon"}
@@ -24,20 +34,26 @@ const List = ({ title, text, status }) => {
             </div>
             {active ? (
                 <div className="open">
-                    <div className="list-title mb-4">{title}</div>
+                    <div className="list-title mb-4">{task.title}</div>
                     <div className="list-desc mb-2">
-                        <p>{text}</p>
+                        <p>{task.desc}</p>
                     </div>
                     <div className="file">
-                        <AiFillFileText /> <p>file name</p>
+                        <AiFillFileText /> <p>{task.file_name}</p>
                     </div>
                     <div className="list-footer">
-                        <div className="date">20-12-2022 | 16:00</div>
+                        <div className="date">{task.date}</div>
                         <div className="action">
-                            <div className="edit mr-2">
+                            <div
+                                className="edit mr-2"
+                                onClick={() => editList(task.id)}
+                            >
                                 <MdModeEditOutline />
                             </div>
-                            <div className="remove">
+                            <div
+                                className="remove"
+                                onClick={() => dispatch(remove(task.id))}
+                            >
                                 <MdOutlineDeleteForever />
                             </div>
                         </div>
@@ -46,7 +62,7 @@ const List = ({ title, text, status }) => {
             ) : (
                 <div className="close">
                     <div className="list-title">
-                        <div className="p">{title}</div>
+                        <div className="p">{task?.title}</div>
                     </div>
                 </div>
             )}
