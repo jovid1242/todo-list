@@ -48,15 +48,19 @@ const Home = () => {
                             </TButton>
                         </div>
                     </div>
-                    {todo?.items.map((task) => {
-                        return (
-                            <List
-                                task={task}
-                                editList={editList}
-                                key={task.id}
-                            />
-                        );
-                    })}
+                    {!todo?.items.length ? (
+                        <h3>Задачи еще не добавлены</h3>
+                    ) : (
+                        todo?.items.map((task) => {
+                            return (
+                                <List
+                                    task={task}
+                                    editList={editList}
+                                    key={task.id}
+                                />
+                            );
+                        })
+                    )}
                 </div>
             </div>
         </div>
