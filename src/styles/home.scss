@@ -1,0 +1,31 @@
+.home {
+    width: 100%;
+    min-height: 100vh;
+
+    .home-wrapper {
+        padding: 60px 0;
+
+        &__head {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-bottom: 45px;
+
+            .title h1 {
+                font-size: 24px;
+                margin-bottom: 16px;
+                color: #fff;
+            }
+            .todo-status {
+                color: #fff;
+                width: 550px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 12px;
+                font-weight: 600;
+            }
+        }
+    }
+}

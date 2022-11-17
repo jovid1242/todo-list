@@ -1,0 +1,24 @@
+.t-status {
+    height: 23px;
+    display: flex;
+    align-items: center;
+
+    .status {
+        width: 23px;
+        height: 23px;
+        margin-right: 8px;
+        border-radius: 50%;
+    }
+
+    .done {
+        background: #a4e19f;
+    }
+
+    .overdue {
+        background: #e19f9f;
+    }
+
+    .progress {
+        background: #9fade1;
+    }
+}
