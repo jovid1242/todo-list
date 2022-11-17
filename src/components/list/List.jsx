@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+
 import { useDispatch } from "react-redux";
-import { remove } from "../../store/slices/todo";
+import { remove, checked } from "../../store/slices/todo";
+
+// utils
+import { notify } from "../../utils/notify";
 
 // icons
 import { IoIosArrowDropupCircle } from "react-icons/io";
@@ -12,7 +16,26 @@ import "../../styles/list.scss";
 
 const List = ({ editList, task }) => {
     const [active, setActive] = useState(false);
+    const [statusTask, setStatusTask] = useState(task.status === "done");
     const dispatch = useDispatch();
+
+    const handleCheckTask = (ev) => {
+        setStatusTask(ev.target.checked);
+        if (ev.target.checked) {
+            notify("success", "Я рада за тебя ☺️☺️☺️");
+        }
+        dispatch(
+            checked({
+                id: task.id,
+                status: ev.target.checked ? "done" : "progress"
+            })
+        );
+    };
+
+    const removeTask = (id) => {
+        dispatch(remove(id));
+        notify("success", "Задача была успешно удалена");
+    };
 
     return (
         <div className={"list " + task.status} key={task.id}>
@@ -23,7 +46,8 @@ const List = ({ editList, task }) => {
                 <input
                     type="checkbox"
                     id="check"
-                    checked={task.status === "done" ? true : false}
+                    onChange={handleCheckTask}
+                    checked={statusTask}
                 />
             </div>
             <div
@@ -39,7 +63,7 @@ const List = ({ editList, task }) => {
                         <p>{task.desc}</p>
                     </div>
                     <div className="file">
-                        <AiFillFileText /> <p>{task.file_name}</p>
+                        <AiFillFileText /> <p>{task.file}</p>
                     </div>
                     <div className="list-footer">
                         <div className="date">{task.date}</div>
@@ -52,7 +76,7 @@ const List = ({ editList, task }) => {
                             </div>
                             <div
                                 className="remove"
-                                onClick={() => dispatch(remove(task.id))}
+                                onClick={() => removeTask(task.id)}
                             >
                                 <MdOutlineDeleteForever />
                             </div>

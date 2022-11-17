@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import dayjs from "dayjs";
 
 const initialState = {
     todo: {
@@ -8,7 +9,7 @@ const initialState = {
                 title: "Делать домашки 2 часа",
                 desc: "Доделать математику, выучить стихотворение Маяковского, сделать тест по геометрии, отправить все домашки на почту преподам... Показать дневник маме :(",
                 file: "image-sdvsdv-sdvsdvsdv.txt",
-                date: "17.11.2022",
+                date: "2022-11-17",
                 status: "done"
             },
             {
@@ -16,7 +17,7 @@ const initialState = {
                 title: "Английский язык 2 часа",
                 desc: "Доделать математику, выучить стихотворение Маяковского, сделать тест по геометрии, отправить все домашки на почту преподам... Показать дневник маме :(",
                 file: "image-sdvsdv-sdvsdvsdv.txt",
-                date: "11.03.2022",
+                date: "2022-08-16",
                 status: "overdue"
             },
             {
@@ -24,7 +25,7 @@ const initialState = {
                 title: "Погулять с девушкой",
                 desc: "Обязательно надо идти )))))",
                 file: "image-sdvsdv-sdvsdvsdv.txt",
-                date: "06.03.2022",
+                date: "2022-11-16",
                 status: "progress"
             }
         ],
@@ -37,8 +38,11 @@ export const todoSlice = createSlice({
     name: "todo",
     initialState,
     reducers: {
-        addNew: (state) => {
-            state.todo.items += 1;
+        addNew: (state, action) => {
+            if (dayjs(action.payload?.date).diff(dayjs(), "hour") <= 0) {
+                action.payload = { ...action.payload, ["status"]: "overdue" };
+            }
+            state.todo.items.push(action.payload);
         },
         remove: (state, action) => {
             state.todo.items = state.todo.items.filter(
@@ -50,10 +54,16 @@ export const todoSlice = createSlice({
                 (elm) => elm.id === action.payload.id
             );
             state.todo.items[indexItem] = action.payload;
+        },
+        checked: (state, action) => {
+            let indexItem = state.todo.items.findIndex(
+                (elm) => elm.id === action.payload.id
+            );
+            state.todo.items[indexItem].status = action.payload.status;
         }
     }
 });
 
-export const { addNew, remove, edit } = todoSlice.actions;
+export const { addNew, remove, edit, checked } = todoSlice.actions;
 
 export default todoSlice.reducer;

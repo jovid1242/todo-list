@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { edit, addNew } from "../store/slices/todo";
+import { useSelector } from "react-redux";
 
 // components
 import TButton from "../components/ui/TButton";
@@ -18,7 +17,6 @@ const Home = () => {
     const [EditModalVisible, setEditModalVisible] = useState(false);
 
     const { todo } = useSelector((state) => state.todo);
-    const dispatch = useDispatch();
 
     const editList = (id) => {
         setEditTask(id);
@@ -37,7 +35,9 @@ const Home = () => {
                 <div className="home-wrapper">
                     <div className="home-wrapper__head mb-4">
                         <div className="title">
-                            <h1>Сегодня у вас (6) задач</h1>
+                            <h1>
+                                Сегодня у вас ( {todo?.items.length} ) задач
+                            </h1>
                         </div>
                         <div className="todo-status">
                             <TStatus text="Сделано" status="done" />
@@ -48,12 +48,12 @@ const Home = () => {
                             </TButton>
                         </div>
                     </div>
-                    {todo?.items.map((item) => {
+                    {todo?.items.map((task) => {
                         return (
                             <List
-                                task={item}
+                                task={task}
                                 editList={editList}
-                                key={item.id}
+                                key={task.id}
                             />
                         );
                     })}

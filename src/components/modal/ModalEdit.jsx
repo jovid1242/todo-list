@@ -8,8 +8,11 @@ import TInput from "../ui/TInput";
 import TextArea from "../ui/TextArea";
 import TButton from "../ui/TButton";
 
+// utils
+import { notify } from "../../utils/notify";
+
 // icons
-import { AiOutlineCloseCircle } from "react-icons/ai";
+import { AiOutlineCloseCircle, AiTwotoneAppstore } from "react-icons/ai";
 
 // styles
 import "../../styles/modal.scss";
@@ -31,16 +34,19 @@ const ModalEdit = ({ id, visible, setVisible }) => {
         setTask(todo.items.find((elm) => elm.id === id));
     }, [id]);
 
-    console.log("dddd", dayjs(task?.date).format("YYYY-MM-DDTHH:mm:ss"));
-
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(edit(task));
+        notify("success", "Задача успешно изменена");
         setVisible(false);
     };
 
+    if (!visible) {
+        return <></>;
+    }
+
     return (
-        <div className="modal" style={{ display: visible ? "flex" : "none" }}>
+        <div className="modal">
             <div className="modal__body">
                 <div className="modal-close" onClick={() => setVisible(false)}>
                     <AiOutlineCloseCircle />
@@ -84,9 +90,7 @@ const ModalEdit = ({ id, visible, setVisible }) => {
                         />
                     </div>
 
-                    <TButton className="xl mt-2">
-                        + ДОБАВИТЬ НОВУЮ ЗАДАЧУ
-                    </TButton>
+                    <TButton className="xl mt-2">ИЗМЕНИТЬ ЗАДАЧУ</TButton>
                 </form>
             </div>
         </div>
